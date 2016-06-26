@@ -10,15 +10,24 @@ network_acl_id = EC2client.create_network_acl(VpcId=vpc)['NetworkAcl']['NetworkA
 
 EC2client.create_network_acl_entry(
     NetworkAclId=network_acl_id,
-    RuleNumber=300,
+    RuleNumber=200,
     Protocol='6',
     RuleAction='deny',
     Egress=False,
     CidrBlock='0.0.0.0/0',
     PortRange={
-        'From': 21,
-        'To': 21
+        'From': 23,
+        'To': 23
     }
+)
+
+EC2client.create_network_acl_entry(
+    NetworkAclId=network_acl_id,
+    RuleNumber=300,
+    Protocol='-1',
+    RuleAction='deny',
+    Egress=False,
+    CidrBlock='0.0.0.0/0'
 )
 
 network_acls = EC2client.describe_network_acls(
